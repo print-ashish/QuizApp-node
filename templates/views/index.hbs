@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz app</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="images/fav.png" type="image/png">
+</head>
+
+<body>
+    {{>nav}}
+    <div class="username_container"  >
+    
+
+        <input  type="text" id="user_name" placeholder="Enter your name">
+        
+        <div id="start_btn">
+            <button onclick="start()">Start</button>
+        </div>
+
+
+    </div>
+
+    <main>
+        <div class="container" style="display: none;">
+            <div class="question" id="que">This is place for questions</div>
+            <div class="option_container">
+                <div tabindex="0" class="option" id="op1" onclick="option(1)" >
+                <a >
+                    <h6 id="op1_txt"> </h6>
+                </a>
+            </div>
+                <div class="option" tabindex="1" onclick="option(2)">
+                <a id="op2">
+                    <h6 id="op2_txt"> </h6>
+                </a>
+            </div>
+                <div class="option" tabindex="2" onclick="option(3)">
+                <a id="op3">
+                    <h6 id="op3_txt"> </h6>
+                </a>
+            </div>
+                <div class="option" tabindex="3" onclick="option(4)">
+                <a id="op4">
+                    <h6 id="op4_txt"> </h6>
+                </a>
+            </div>
+           
+                </div>  
+  
+
+            <div class="togglebtns">
+                <button id="next_btn"  onclick="next_ques()">Next</button>
+                <button id="finish_btn"  style="display: none;" onclick="finsih_ques()">Finish</button>
+            </div>
+        </div>
+    </main>
+
+</body>
+<script src="/js/index.js"></script>
+
+</html>
