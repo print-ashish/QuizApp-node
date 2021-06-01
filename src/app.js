@@ -3,7 +3,7 @@ const path = require("path");
 const hbs = require("hbs");
 var app = express();
 require("./connection");
-var port = process. env. PORT || 8000;
+var port = process.env.PORT || 8000;
 // require("../public/js/index.js")
 const User = require("../src/database.js")
 // const staticpath = path.join(__dirname,"../public/");
