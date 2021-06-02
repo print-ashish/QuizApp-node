@@ -20,11 +20,15 @@ app.use(express.urlencoded({extended:false}));
 
 app.get("/dare",(req,res)=>
 {
-    res.send("this is a dare page ");
+    res.render('dares');
 })
+
 app.get("/",(req,res)=>
 {
     res.render("index");
+})
+app.get("/about",(req,res)=>{
+    res.render("about");
 })
 app.listen(port,()=>
 {

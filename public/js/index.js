@@ -20,13 +20,19 @@ function start() {
     console.log("start fired")
     console.log(user_name.value);
     user = user_name.value;
-    username_container[0].style.display = "none"
-    container[0].style.display = "flex"
-    var questions = [`What is your fav drink`, "Capital of India", "which is longest river in world", "What is 5 x 3"]
-    // display(q_no);
-    question_arr = questions;
-    var que_len = question_arr.length;
-    display(q_no);
+    if (user=="") {
+        alert("please enter a name")
+        
+    } else {
+        username_container[0].style.display = "none"
+        container[0].style.display = "flex"
+        var questions = [`What is your fav drink`, "Capital of India", "which is longest river in world", "What is 5 x 3"]
+        // display(q_no);
+        question_arr = questions;
+        var que_len = question_arr.length;
+        display(q_no);
+        
+    }
 
 
 
@@ -164,57 +170,40 @@ var qz_player = "";
 var qz_user_ans = "";
 var qz_user_id = "";
 function start_quiz() {
-    username_container[0].style.display = "none"
-    container[0].style.display = "flex"
-    //    fetch("/tell_me_username").then((response)=>
-    //    {
-    //        console.log("fetch completedd")
-    //    }).catch((err)=>{
-    //        console.log("we got error while fetching")
-    //    })
+    if (player_name.value == "") {
+        alert("please enter a name")
+    }
+    else{
+        username_container[0].style.display = "none"
+        container[0].style.display = "flex"
+     
+        fetch('/xyz')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                qz_player = data.user;
+                qz_user_ans = data.quiz_user_ans;
+                qz_user_id = data._id;
+    
+                var questions = [`What is ${data.user} fav drink`, "Capital of India", "which is longest river in world", "What is 5 x 3"]
+                console.log(qz_player);
+                console.log(`quiz started player name ${player_name.value}`)
+    
+                // display(q_no);
+                question_arr = questions;
+                var que_len = question_arr.length;
+                display(q_no);
+                // console.log(qz_player);
+            });
 
+    }
 
-
-    // fetch("/tell_me_username",{
-    //     method:"GET",
-    //     headers: {
-    //         'Content-Type': 'application/json'
-
-    //       }
-    //     })
-
-    // console.log(qz);
-    // }).then((response)=>{
-    //     console.log(response)
-    // }
-    // ).catch((err)=>
-    // {
-    //     console.log("error in the catch block")
-    //     console.log(err);
-    // })
-    fetch('/xyz')
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            qz_player = data.user;
-            qz_user_ans = data.quiz_user_ans;
-            qz_user_id = data._id;
-
-            var questions = [`What is ${data.user} fav drink`, "Capital of India", "which is longest river in world", "What is 5 x 3"]
-            console.log(qz_player);
-            console.log(`quiz started player name ${player_name.value}`)
-
-            // display(q_no);
-            question_arr = questions;
-            var que_len = question_arr.length;
-            display(q_no);
-            // console.log(qz_player);
-        });
 
 
 }
 var player_score = 0;
 function calculate() {
+    const player_score_display = document.getElementById("player_score");
     console.log(`player ans = ${player_ans}`);
     console.log(`qz_user ans = ${qz_user_ans}`);
 
@@ -225,20 +214,24 @@ function calculate() {
         }
     }
     console.log(player_score);
+    container[0].style.display = "none";
+    player_score_display.style.display = "block"
+    player_score_display.innerHTML = `Your total score = ${player_score}`
+
     //posting data
-    const data = {
-        player: player_name.value,
-        player_score: player_score
-    }
-    // localStorage.setItem("user_ans",player_ans);
-    const fetchoptions = {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    }
-    fetch("/submit_quiz", fetchoptions);
+    // const data = {
+    //     player: player_name.value,
+    //     player_score: player_score
+    // }
+    // // localStorage.setItem("user_ans",player_ans);
+    // const fetchoptions = {
+    //     method: "POST",
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(data)
+    // }
+    // fetch("/submit_quiz", fetchoptions);
 
 }
 function submit() {
