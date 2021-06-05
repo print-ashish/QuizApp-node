@@ -10,15 +10,18 @@ html{
     height: 100%;
 }
 body{
+    background-color: black;
     height: 100%;
     /* box-sizing: border-box; */
     margin: 0;
     padding: 0;
+    color: white;
     /* position: relative; */
     display: flex;
     flex-direction: column;
 }
 footer{
+    color: black;
     align-items: center;
     min-height: 4rem;
     display: flex;
@@ -87,6 +90,39 @@ header .navitems li a:focus{
 #player_score{
     font-size: 4rem;
 
+}
+#share_link{
+    display: flex;
+    flex-direction: column;
+    
+    height: 17rem;
+    justify-content: center;
+    align-items: center;
+    background-color: aqua;
+}
+#copy_link{
+    height: 3rem;
+    width: 40%;
+    font-size: 2rem;
+}
+#btn_copy{
+    margin-top: 2rem;
+    font-size: 1.5rem;
+
+    color: black;
+    background-color: rgb(50, 241, 50);
+   height: 4rem;
+   width: 12rem;
+   border-radius: 10px;
+}
+#btn_copy:hover{
+    font-weight: bold;
+    background-color: rgb(0, 202, 0);
+}
+#how_to_play{
+    font-size: 2rem;
+    margin-top: 4rem;
+    margin-left: 4rem;
 }
 
 main .container{

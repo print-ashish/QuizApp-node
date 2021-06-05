@@ -30,7 +30,7 @@
     </div>
 
     <main>
-        <div class="container" style="display: none;">
+        <div class="container" id="main_container" style="display: none;">
             <div class="question" id="que">This is place for questions</div>
             <div class="option_container">
                 <div tabindex="0" class="option" id="op1" onclick="option(1)" >
@@ -59,13 +59,32 @@
 
             <div class="togglebtns">
                 <button id="next_btn"  onclick="next_ques()">Next</button>
-                <button id="finish_btn"  style="display: none;" onclick="finsih_ques()">Finish</button>
+                <button id="finish_btn"  style="display: none;" onclick="finish_ques()">Finish</button>
             </div>
         </div>
     </main>
+    <div id="how_to_play">
+        <h2>How to play this Quiz?</h2>
+        <ul >
+            <li>First Enter your name and start the Quiz</li>
+            <li>Select your answers of all the questions</li>
+            <li>
+                After finishing copy the link and share it with your friends
+            </li>
+            <li>
+                As soon as any person plays your quiz his/her score will be displayed to you
+            </li>
+
+        </ul>
+    </div>
+    <div id="share_link" style="display: none;">
+        <input type="text" id="copy_link" value="https://quiz-app-ashish.herokuapp.com/" readonly>
+        <div onclick="copy_the_link()"><button id="btn_copy">Copy Link</button></div>
+    </div>
 
     {{>footer}}
 </body>
+
 <script src="/js/index.js"></script>
 
 </html>

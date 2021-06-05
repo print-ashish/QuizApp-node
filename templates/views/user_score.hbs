@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz app</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+     <link rel="shortcut icon" href="images/fav.png" type="image/png">
+</head>
+
+<body>
+    {{>nav}}
+    <h1>Welcome {{user}} to your quiz</h1>
+
+        <div id="share_link" style="display: flex;">
+        <input type="text" id="copy_link" value= {{user_link}} readonly>
+        <div onclick="copy_the_link()"><button id="btn_copy">Copy Link</button></div>
+    </div>
+    <div class="players_section" id="players_section_id" style="display: none;" >
+        <table >
+            <thead>
+
+            <tr>
+                <th>Name</th>
+                <th>Score</th>
+            </tr>
+            </thead>
+            <tbody id="players">
+               
+            </tbody>
+            
+             
+            
+        </table>
+    </div>
+     
+ </body>
+<script src="/js/user_score.js"></script>
+
+</html>

@@ -9,7 +9,8 @@ const playerSchema = new mongoose.Schema({
     user:String,
     quiz_user_ans: String,
     players : [String],
-    player_scores :[Number]
+    player_scores :[Number],
+    tokens:[String]
 
 })
 

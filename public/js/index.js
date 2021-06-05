@@ -13,10 +13,13 @@ const username_container = document.getElementsByClassName("username_container")
 const container = document.getElementsByClassName("container");
 const user_name = document.getElementById("user_name");
 const player_name = document.getElementById("player_name");
+const players = document.getElementById("players");
+const how_to_play = document.getElementById("how_to_play");
+const share_link = document.getElementById("share_link");
 const players_section_id = document.getElementById("players_section_id");
 var questions = []
 function start() {
-
+    
     console.log("start fired")
     console.log(user_name.value);
     user = user_name.value;
@@ -24,8 +27,11 @@ function start() {
         alert("please enter a name")
         
     } else {
+        // share_link.style.display = "none"
         username_container[0].style.display = "none"
-        container[0].style.display = "flex"
+        container[0].style.display = "flex";
+        how_to_play.style.display = "none";
+
         var questions = [`What is your fav drink`, "Capital of India", "which is longest river in world", "What is 5 x 3"]
         // display(q_no);
         question_arr = questions;
@@ -53,7 +59,6 @@ const op4_txt = document.getElementById("op4_txt")
 const finish_btn = document.getElementById("finish_btn");
 const next_btn = document.getElementById("next_btn");
 const question = document.getElementById("que");
-const players = document.getElementById("players");
 var q_no = 0;
 
 // var fst_img = document.createElement("img");
@@ -85,6 +90,14 @@ function option(n) {
     //  player_ans = player_ans + str2;
     // console.log(str2)
     // console.log(player_ans)
+}
+const copy_link = document.getElementById("copy_link");
+function copy_the_link() {
+    // copy_link.value = "this is a copy link testing"
+    copy_link.select();
+    document.execCommand("copy");
+    alert("link copied ! ")
+    
 }
 function next_ques() {
 
@@ -145,9 +158,13 @@ function display(q_no) {
     // op4.appendChild(forth_img);
 }
 // op1.innerHTML = "tea pic"
+const main_container = document.getElementById("main_container");
 
+function finish_ques() {
+    main_container.style.display = "none";
+    how_to_play.style.display = "none";
+    share_link.style.display = "flex";
 
-function finsih_ques() {
 
     const data = {
         userans: player_ans,
@@ -161,7 +178,18 @@ function finsih_ques() {
         },
         body: JSON.stringify(data)
     }
-    fetch("/finish", fetchoptions);
+    fetch("/finish", fetchoptions).then(response => response.json()).then((data)=>
+    {
+        console.log(data);
+        var link = "https://quiz-app-ashish.herokuapp.com/"+data.current_id;
+        copy_link.value = link;
+        localStorage.setItem("id", data.current_id)
+    })
+    // fetch("/finish").then((res)=>
+    // {
+    //     console.log("getting the id of current user");
+    //     console.log(res.json());
+    // })
     // fetch("http://localhost:5500/finish",{
     //     method:"GET"
     // })
@@ -175,7 +203,7 @@ function start_quiz() {
     }
     else{
         username_container[0].style.display = "none"
-        container[0].style.display = "flex"
+        container[0].style.display = "flex";
      
         fetch('/xyz')
             .then(response => response.json())
