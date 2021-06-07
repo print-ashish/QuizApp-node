@@ -27,5 +27,5 @@ fetch('/xyz')
       players.innerHTML = "No players have answered your quiz share the link"
     }
     
-  players_section_id.style.display = "block"
+  players_section_id.style.display = "flex"
 })

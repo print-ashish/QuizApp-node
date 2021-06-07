@@ -10,6 +10,12 @@ var port = process.env.PORT || 8000;
 const User = require("../src/database.js")
 // const staticpath = path.join(__dirname,"../public/");
 
+function authenticateToken(token) {
+    const client_jwt = jwt.verify(token,secretkey)
+    // console.log(client_jwt);
+    return client_jwt
+    
+}
 //creating token
 // const token = "";
 const secretkey = "thisisasecretkeybyashishsharma"
@@ -19,7 +25,7 @@ const secretkey = "thisisasecretkeybyashishsharma"
     const token =  jwt.sign({_id:user_id},secretkey,{
         expiresIn: "20d"
     });
-    console.log(token)
+    // console.log(token)
     return token;
     
 }
@@ -27,10 +33,11 @@ const secretkey = "thisisasecretkeybyashishsharma"
 
 
 
+var userdata ={}
 
 
 app.use(cookieParser()); 
-console.log(__dirname);
+// console.log(__dirname);
 // console.log(staticpath);
 const partialspath = path.join(__dirname,"../templates/partials");
 const viewpath = path.join(__dirname,"../templates/views");
@@ -46,7 +53,34 @@ app.get("/dare",(req,res)=>
     res.render('dares');
 })
 
-app.get("/",(req,res)=>
+app.get("/",async(req,res)=>
+{
+    const client_cookie = req.cookies.jwt;
+    if (client_cookie == undefined) {
+        res.render("index");
+        
+    } else {
+        // res.send(" cookie present");
+        
+        // console.log(client_cookie);
+        const token_user_id = authenticateToken(client_cookie);
+        // console.log(token_user_id._id);
+        try {
+            const data = await User.findById(token_user_id._id);
+            userdata = data;
+            res.status(201).render("user_score",{
+                user:userdata.user,
+                user_link:"https://quiz-app-ashish.herokuapp.com/"+token_user_id._id
+            })
+            
+        } catch (error) {
+            res.send("invald token id")
+            
+        }
+ 
+    }
+})
+app.get("/create",(req,res)=>
 {
     res.render("index");
 })
@@ -63,7 +97,7 @@ app.post("/finish",(req,res)=>
     // res.send("finish from the server"); 
     // console.log("finish is working")
     // console.log(req.body.userans);
-    console.log(req.body)
+    // console.log(req.body)
     const objans = {
         user: req.body.user,
         quiz_user_ans : req.body.userans
@@ -71,7 +105,7 @@ app.post("/finish",(req,res)=>
     User.insertMany(objans).then((ins_data)=>
     {
         console.log("data inserted");
-        console.log(ins_data[0]._id);
+        // console.log(ins_data[0]._id);
        const user_token = createToken(ins_data[0]._id);
        User.findOneAndUpdate({_id:ins_data[0]._id},{tokens:user_token}).then(()=>{
            console.log("token inserted ")
@@ -90,10 +124,9 @@ app.post("/finish",(req,res)=>
     })
 })
 
-var userdata ={}
 app.get("/xyz",(req,res)=>
 {
-    console.log("i got the request")
+    // console.log("i got the request")
     // const obj = {
     //     name: userdata.user
     // }
@@ -101,12 +134,6 @@ app.get("/xyz",(req,res)=>
 
    res.json(userdata)
 })
-function authenticateToken(token) {
-    const client_jwt = jwt.verify(token,secretkey)
-    // console.log(client_jwt);
-    return client_jwt
-    
-}
 app.get("/userscore",(req,res)=>{
     res.json(userdata);
 })
@@ -118,47 +145,52 @@ app.get("/:id", async(req,res)=>
     console.log("getting cookie info");
     const client_cookie = req.cookies.jwt;
     // console.log(client_cookie);
-    if (client_cookie == undefined) {
-        console.log("cookie not present in the client side")
-        try {
-            const data = await User.findById(req.params.id);
-            if (data!= null) {
-                userdata = data;
-                res.status(200);
-                res.render("player",{
-                    quiz_user: data.user
-                })
-                // console.log(data)
-                // console.log(data.quiz_user_ans[1])
+    try {
+        const data = await User.findById(req.params.id);
+        userdata = data;
+        if (client_cookie == undefined) {
+            console.log("cookie not present in the client side")
+            
+                if (data!= null) {
+                    res.status(200);
+                    res.render("player",{
+                        // quiz_user: data.user
+                        quizzer : userdata.user
+                    })
+                    // console.log(data)
+                    // console.log(data.quiz_user_ans[1])
+                    
+                } else {
+                    res.send("data not found");
+                    console.log("data not found")
+                }
                 
-            } else {
-                res.send("data not found");
-                console.log("data not found")
+            
+        } else {
+           
+            // console.log(client_cookie);
+            const token_user_id = authenticateToken(client_cookie);
+            // console.log(token_user_id._id);
+            //check whether the jwt id is same as request id
+            if (token_user_id._id == req.params.id) {
+                
+                const data = await User.findById(req.params.id);
+                userdata = data;
+                res.status(201).render("user_score",{
+                    user:userdata.user,
+                    user_link:"https://quiz-app-ashish.herokuapp.com/"+req.params.id
+                })
             }
-            
-        }catch (error) {
-            console.log("error in catch")
-            // console.log(error)
-            
+            else{
+                res.render("player",{
+                    quizzer: userdata.user
+                })
+            }
+            // res.send("you have a cookie let me check who you are")
         }
-    } else {
-        console.log(client_cookie);
-        const token_user_id = authenticateToken(client_cookie);
-        console.log(token_user_id._id);
-        //check whether the jwt id is same as request id
-        if (token_user_id._id == req.params.id) {
-            
-            const data = await User.findById(req.params.id);
-            userdata = data;
-            res.status(201).render("user_score",{
-                user:userdata.user,
-                user_link:"https://quiz-app-ashish.herokuapp.com/"+req.params.id
-            })
-        }
-        else{
-            res.render("player")
-        }
-        // res.send("you have a cookie let me check who you are")
+        
+    } catch (error) {
+        res.send("not data in this database")
     }
     // console.log("getting localstorage");
     // console.log(localStorage())
@@ -170,11 +202,11 @@ app.get("/:id", async(req,res)=>
 app.post("/submit_quiz",(req,res)=>
 {
     console.log("i got a post request");
-    console.log(req.body.id);
+    // console.log(req.body.id);
     const id = req.body.id;
     const player = req.body.player;
     const player_sc = req.body.player_score;
-    console.log(`id = ${id} , player = ${player} and player score = ${player_sc}`);
+    // console.log(`id = ${id} , player = ${player} and player score = ${player_sc}`);
     User.findOneAndUpdate({_id:id},{
         $push:{
             players: player,

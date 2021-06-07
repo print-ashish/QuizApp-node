@@ -279,7 +279,7 @@ font-size: 2rem;
     box-shadow: 0px 0px 10px black;
 
 }
-#start_btn button{
+#create_quiz,#start_btn button{
     color: white;
     font-size: 2rem;
     background-color: var(--second);
@@ -288,6 +288,7 @@ font-size: 2rem;
     box-shadow: 1px 1px 10px  white;
     animation: startquiz 2s infinite alternate;
     animation-timing-function: linear;
+    cursor: pointer;
 }
 @keyframes startquiz {
   from{
@@ -303,27 +304,49 @@ font-size: 2rem;
     background-color: rgb(11, 255, 11);
     
 }
+#create_my_quiz{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .players_section{
-    margin-left: 13%;
-    margin-top: 4rem;
-    width: 90rem;
-    min-height: 20rem;
+    /* margin-left: 13%;
+    /* width: 90rem; */
+    /* margin-top: 4rem; */
+    min-height: 44rem;
     max-height: auto;
     background-color: var(--third);
     color: black;
     /* font-weight: ; */
-    font-size: 4rem;
+    font-size: 3rem;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     /* justify-content: center; */
     align-items: center;
 }
+#create_quiz a{
+    color: black;
+    font-size: 2rem;
+    text-decoration: none;
+    font-weight: 400;
+}
 table, th, td {
+    /* align-items: center;*/
+    /* text-align: center; */
     border: 1px solid black;
     width: 5rem;
   }
+  table{
+      width: 80%;
+      /* margin-top: 3rem;
+      margin-left: 17rem; */
+      /* margin-left: 22.5%; */
+   }  
 
-th, td {
+td {
+    text-align: center;
     padding: 0 15rem;
     width: 5rem;
   }

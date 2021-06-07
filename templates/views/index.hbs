@@ -78,8 +78,45 @@
         </ul>
     </div>
     <div id="share_link" style="display: none;">
+        <h2 style="font-size: 2rem;">Congrats! 🙌 Your link is generated copy and share it with your friends 👇</h2>
         <input type="text" id="copy_link" value="https://quiz-app-ashish.herokuapp.com/" readonly>
         <div onclick="copy_the_link()"><button id="btn_copy">Copy Link</button></div>
+    </div>
+      <div class="players_section" id="players_section_id" style="display: none;" >
+        <div>
+            <h3>Your friends scores👇</h3>
+        </div>
+        <div>
+
+
+        <table >
+            <thead>
+
+            <tr>
+                <th>Name</th>
+                <th>Score</th>
+            </tr>
+            </thead>
+            <tbody id="players">
+                {{!-- No players have answered your quiz share the link --}}
+                    No players have answered your quiz share the link
+                <tr>
+                    
+
+                    
+            
+          
+                </tr>
+               
+            </tbody>
+            
+             
+            
+        </table>
+
+        </div>
+        <div ><button id="create_quiz"><a href="/create" style="font-size: 2rem;" >Create New Quiz</a> </button>
+        </div>
     </div>
 
     {{>footer}}

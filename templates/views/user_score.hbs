@@ -17,11 +17,17 @@
     <h1 style="text-align: center; font-size: 3rem">Welcome {{user}} to your quiz</h1>
 
         <div id="share_link" style="display: flex;">
-            <h2 style="font-size: 2rem;">Congrats! Your link is generated share it with your friends</h2>
+            <h2 style="font-size: 2rem;">Congrats! 🙌 Your link is generated copy and share it with your friends 👇</h2>
         <input type="text" id="copy_link" value= {{user_link}} readonly>
         <div onclick="copy_the_link()"><button id="btn_copy">Copy Link</button></div>
     </div>
     <div class="players_section" id="players_section_id" style="display: none;" >
+        <div>
+            <h3>Your friends scores👇</h3>
+        </div>
+        <div>
+
+
         <table >
             <thead>
 
@@ -31,8 +37,11 @@
             </tr>
             </thead>
             <tbody id="players">
-                {{!-- No players have answered your quiz share the link --}}
                 <tr>
+                    <td>
+                No players have answered your quiz share the link
+
+                    </td>
             
           
                 </tr>
@@ -42,6 +51,10 @@
              
             
         </table>
+
+        </div>
+        <div ><button id="create_quiz"><a href="/create" style="font-size: 2rem;" >Create New Quiz</a> </button>
+        </div>
     </div>
      {{>footer}}
  </body>

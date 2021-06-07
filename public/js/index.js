@@ -164,6 +164,7 @@ function finish_ques() {
     main_container.style.display = "none";
     how_to_play.style.display = "none";
     share_link.style.display = "flex";
+    players_section_id.style.display = "flex";
 
 
     const data = {
