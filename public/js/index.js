@@ -6,7 +6,7 @@ var user = "";
 
 
 // console.log(question_arr[0]);
-const option_arr = [["tea", "coffee", "beer", "juice"], ["Delhi", "Bihar", "Kolkata", "Mumbai"], ["Ganga", "Yamuna", "Nile", "Saraswati"], ["4", "15", "10", "5"]]
+const option_arr = [["tea", "coffee", "sasta nasha", "juice"],['😄','😉','😂','😎'],["sleeping","playing games",'listen music','outing with friends'], ["summer","winter",'rainy','spring'],['batman','superman','doraemon','ironman'],['mom','dad','friend','gf/bf'],['black','blue','pink','violet'],['facebook','whatsapp','instagram','snapchat'],['Bollywood','Hollywood','Tollywood','Animations'],['Cricket','Pubg',"Football","Ludo king"]]
 
 
 const username_container = document.getElementsByClassName("username_container");
@@ -32,7 +32,7 @@ function start() {
         container[0].style.display = "flex";
         how_to_play.style.display = "none";
 
-        var questions = [`What is your fav drink`, "Capital of India", "which is longest river in world", "What is 5 x 3"]
+        var questions = [`1.What is your fav drink?`,'2.What is your fav emoji?',"3.What will you choose to do in  free time?",'4.Which season you like the most?',"5.Who is your fav. superhero","6.Who knows your secret?","7.what is your fav. color","8.Which is your fav. app?","9.Which one is your fav. movies industry?","10.What is your fav. game/sports? "]
         // display(q_no);
         question_arr = questions;
         var que_len = question_arr.length;
@@ -214,7 +214,7 @@ function start_quiz() {
                 qz_user_ans = data.quiz_user_ans;
                 qz_user_id = data._id;
     
-                var questions = [`What is ${data.user} fav drink`, "Capital of India", "which is longest river in world", "What is 5 x 3"]
+                var questions = [`1.What is ${data.user} fav drink?`,`2.What is ${data.user} fav emoji?`,`3.What will ${data.user} choose to do in free time?`,`4.Which season ${data.user} like the most?`,`5.Who is ${data.user} fav. superhero`,`6.Who knows ${data.user} secret?`,`7.what is ${data.user} fav. color`,`8.Which is ${data.user} fav. app?`,`9.Which one is ${data.user} fav. movies industry?`,`10.What is ${data.user} fav. game/sports? `]
                 console.log(qz_player);
                 console.log(`quiz started player name ${player_name.value}`)
     
@@ -245,7 +245,7 @@ function calculate() {
     console.log(player_score);
     container[0].style.display = "none";
     player_score_display.style.display = "block"
-    player_score_display.innerHTML = `Your total score = ${player_score}`
+    player_score_display.innerHTML = `Your total score = ${player_score}/10`
 
     //posting data
     // const data = {
@@ -289,7 +289,7 @@ function submit() {
             <tr>
             
             <td>${data.players[i]}</td>
-            <td>${data.player_scores[i]}</td> 
+            <td>${data.player_scores[i]}/10</td> 
             </tr>`
             
             
@@ -298,7 +298,7 @@ function submit() {
           s = s+ `       <tr>
             
           <td>${player_name.value}</td>
-          <td>${player_score}</td> 
+          <td>${player_score}/10</td> 
           </tr>`
           players.innerHTML = s;
           players_section_id.style.display = "block"
